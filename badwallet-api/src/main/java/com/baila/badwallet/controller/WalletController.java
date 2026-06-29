@@ -4,11 +4,13 @@ import com.baila.badwallet.common.ApiResponse;
 import com.baila.badwallet.common.PageResponse;
 import com.baila.badwallet.dto.request.CreateWalletRequest;
 import com.baila.badwallet.dto.request.DepositRequest;
+import com.baila.badwallet.dto.request.WithdrawRequest;
 import com.baila.badwallet.dto.response.BalanceResponse;
 import com.baila.badwallet.dto.response.WalletResponse;
 import com.baila.badwallet.service.DepositService;
 import com.baila.badwallet.service.WalletSeederService;
 import com.baila.badwallet.service.WalletService;
+import com.baila.badwallet.service.WithdrawalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +33,16 @@ public class WalletController {
     private final WalletSeederService walletSeederService;
     private final WalletService walletService;
     private final DepositService depositService;
+    private final WithdrawalService withdrawalService;
 
     public WalletController(WalletSeederService walletSeederService,
                            WalletService walletService,
-                           DepositService depositService) {
+                           DepositService depositService,
+                           WithdrawalService withdrawalService) {
         this.walletSeederService = walletSeederService;
         this.walletService = walletService;
         this.depositService = depositService;
+        this.withdrawalService = withdrawalService;
     }
 
     /** 1.1 - Seeder la base (asynchrone). */
@@ -91,5 +96,13 @@ public class WalletController {
             @Valid @RequestBody DepositRequest request) {
         return ResponseEntity.ok(
                 ApiResponse.success("Dépôt effectué avec succès", depositService.deposit(id, request)));
+    }
+
+    /** 1.7 - Effectuer un retrait (frais de 1% plafonnés à 5000 XOF). */
+    @PostMapping("/withdraw")
+    public ResponseEntity<ApiResponse<WalletResponse>> withdraw(
+            @Valid @RequestBody WithdrawRequest request) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Retrait effectué avec succès", withdrawalService.withdraw(request)));
     }
 }
