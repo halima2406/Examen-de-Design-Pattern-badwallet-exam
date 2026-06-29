@@ -3,8 +3,10 @@ package com.baila.badwallet.controller;
 import com.baila.badwallet.common.ApiResponse;
 import com.baila.badwallet.common.PageResponse;
 import com.baila.badwallet.dto.request.CreateWalletRequest;
+import com.baila.badwallet.dto.request.DepositRequest;
 import com.baila.badwallet.dto.response.BalanceResponse;
 import com.baila.badwallet.dto.response.WalletResponse;
+import com.baila.badwallet.service.DepositService;
 import com.baila.badwallet.service.WalletSeederService;
 import com.baila.badwallet.service.WalletService;
 import jakarta.validation.Valid;
@@ -28,11 +30,14 @@ public class WalletController {
 
     private final WalletSeederService walletSeederService;
     private final WalletService walletService;
+    private final DepositService depositService;
 
     public WalletController(WalletSeederService walletSeederService,
-                           WalletService walletService) {
+                           WalletService walletService,
+                           DepositService depositService) {
         this.walletSeederService = walletSeederService;
         this.walletService = walletService;
+        this.depositService = depositService;
     }
 
     /** 1.1 - Seeder la base (asynchrone). */
@@ -77,5 +82,14 @@ public class WalletController {
     public ResponseEntity<ApiResponse<BalanceResponse>> getBalance(@PathVariable String phoneNumber) {
         return ResponseEntity.ok(
                 ApiResponse.success("Solde récupéré", walletService.getBalance(phoneNumber)));
+    }
+
+    /** 1.6 - Effectuer un dépôt. */
+    @PostMapping("/{id}/deposit")
+    public ResponseEntity<ApiResponse<WalletResponse>> deposit(
+            @PathVariable Long id,
+            @Valid @RequestBody DepositRequest request) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Dépôt effectué avec succès", depositService.deposit(id, request)));
     }
 }
