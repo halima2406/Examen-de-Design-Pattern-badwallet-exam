@@ -10,9 +10,11 @@ import com.baila.badwallet.dto.request.TransferRequest;
 import com.baila.badwallet.dto.request.WithdrawRequest;
 import com.baila.badwallet.dto.response.BalanceResponse;
 import com.baila.badwallet.dto.response.PaymentReceiptResponse;
+import com.baila.badwallet.dto.response.TransactionResponse;
 import com.baila.badwallet.dto.response.WalletResponse;
 import com.baila.badwallet.service.BillPaymentService;
 import com.baila.badwallet.service.DepositService;
+import com.baila.badwallet.service.TransactionHistoryService;
 import com.baila.badwallet.service.TransferService;
 import com.baila.badwallet.service.WalletSeederService;
 import com.baila.badwallet.service.WalletService;
@@ -28,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Point d'entrée HTTP des portefeuilles. Le controller ne porte aucune logique
  * métier : il valide l'entrée et délègue à des services dédiés (un par opération).
@@ -42,19 +46,22 @@ public class WalletController {
     private final WithdrawalService withdrawalService;
     private final TransferService transferService;
     private final BillPaymentService billPaymentService;
+    private final TransactionHistoryService transactionHistoryService;
 
     public WalletController(WalletSeederService walletSeederService,
                            WalletService walletService,
                            DepositService depositService,
                            WithdrawalService withdrawalService,
                            TransferService transferService,
-                           BillPaymentService billPaymentService) {
+                           BillPaymentService billPaymentService,
+                           TransactionHistoryService transactionHistoryService) {
         this.walletSeederService = walletSeederService;
         this.walletService = walletService;
         this.depositService = depositService;
         this.withdrawalService = withdrawalService;
         this.transferService = transferService;
         this.billPaymentService = billPaymentService;
+        this.transactionHistoryService = transactionHistoryService;
     }
 
     /** 1.1 - Seeder la base (asynchrone). */
@@ -142,5 +149,14 @@ public class WalletController {
         return ResponseEntity.ok(
                 ApiResponse.success("Factures payées avec succès",
                         billPaymentService.paySpecificFactures(request)));
+    }
+
+    /** 1.11 - Consulter l'historique des transactions par téléphone. */
+    @GetMapping("/{phoneNumber}/transactions")
+    public ResponseEntity<ApiResponse<List<TransactionResponse>>> transactions(
+            @PathVariable String phoneNumber) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Historique récupéré",
+                        transactionHistoryService.getHistory(phoneNumber)));
     }
 }
