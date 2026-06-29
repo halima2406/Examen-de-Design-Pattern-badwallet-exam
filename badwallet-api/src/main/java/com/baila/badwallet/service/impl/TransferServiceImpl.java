@@ -14,9 +14,6 @@ import com.baila.badwallet.service.WalletFinder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Transfert : débite l'émetteur, crédite le destinataire, trace les deux côtés.
- */
 @Service
 @Transactional
 public class TransferServiceImpl implements TransferService {

@@ -5,11 +5,6 @@ import com.baila.badwallet.exception.ResourceNotFoundException;
 import com.baila.badwallet.repository.WalletRepository;
 import org.springframework.stereotype.Component;
 
-/**
- * Collaborateur partagé pour retrouver un portefeuille de façon cohérente.
- * Évite de dupliquer la logique de recherche (et les messages d'erreur) dans
- * chaque service métier (principe DRY + responsabilité unique).
- */
 @Component
 public class WalletFinder {
 

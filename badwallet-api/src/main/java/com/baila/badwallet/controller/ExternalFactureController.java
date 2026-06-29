@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Proxy API (Partie 2) : expose les factures du service externe payment-service
- * sans que le client n'ait à connaître ce dernier. Délègue au {@link FactureGateway}
- * (pattern Proxy), qui réalise les appels HTTP distants.
- */
 @RestController
 @RequestMapping("/api/external/factures")
 public class ExternalFactureController {
@@ -29,7 +24,6 @@ public class ExternalFactureController {
         this.factureGateway = factureGateway;
     }
 
-    /** 2.2 / 2.3 - Factures impayées du mois en cours (filtre optionnel par unité). */
     @GetMapping("/{code}/current")
     public ResponseEntity<ApiResponse<List<FactureResponse>>> current(
             @PathVariable String code,
@@ -39,7 +33,6 @@ public class ExternalFactureController {
                 ApiResponse.success("Factures impayées du mois récupérées", factures));
     }
 
-    /** 2.4 - Factures impayées sur une période. */
     @GetMapping("/{code}/periode")
     public ResponseEntity<ApiResponse<List<FactureResponse>>> periode(
             @PathVariable String code,

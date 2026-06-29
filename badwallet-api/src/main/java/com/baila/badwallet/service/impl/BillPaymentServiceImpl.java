@@ -19,10 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-/**
- * Paiement de factures : règle les factures côté payment-service (via le Proxy),
- * débite le portefeuille du montant dû et enregistre la transaction.
- */
 @Service
 @Transactional
 public class BillPaymentServiceImpl implements BillPaymentService {

@@ -8,10 +8,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Contrainte de validation personnalisée : numéro de téléphone sénégalais
- * au format international (+221 suivi de 70/75/76/77/78 et 7 chiffres).
- */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = TelephoneValidator.class)

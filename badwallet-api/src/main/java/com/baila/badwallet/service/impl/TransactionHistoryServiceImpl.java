@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Historique : retourne les transactions d'un portefeuille (les plus récentes d'abord).
- */
 @Service
 @Transactional(readOnly = true)
 public class TransactionHistoryServiceImpl implements TransactionHistoryService {
@@ -31,7 +28,7 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 
     @Override
     public List<TransactionResponse> getHistory(String phoneNumber) {
-        // Vérifie l'existence du portefeuille (lève une 404 sinon).
+
         walletFinder.byPhone(phoneNumber);
         return transactionRepository
                 .findByWalletPhoneNumberOrderByCreatedAtDesc(phoneNumber)

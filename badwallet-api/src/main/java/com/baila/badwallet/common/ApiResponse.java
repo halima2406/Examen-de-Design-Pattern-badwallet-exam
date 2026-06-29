@@ -4,10 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * Enveloppe de réponse uniforme : toutes les routes renvoient le même format
- * (success / message / data / errors), ce qui simplifie la consommation côté client.
- */
 @Getter
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.ALWAYS)

@@ -6,9 +6,6 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-/**
- * Données d'un retrait (frais de 1% plafonnés à 5000 XOF appliqués par le service).
- */
 public record WithdrawRequest(
 
         @ValidTelephone

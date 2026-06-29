@@ -23,6 +23,5 @@ spring:
   jackson:
     default-property-inclusion: non_null
 
-# URL de base du service externe de facturation (payment-service)
 payment-service:
   base-url: http://localhost:8081

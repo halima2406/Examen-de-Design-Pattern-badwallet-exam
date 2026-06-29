@@ -4,10 +4,6 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-/**
- * DTO de pagination renvoyé au client : contenu + métadonnées (page, taille, totaux).
- * Évite d'exposer directement l'objet Page de Spring Data.
- */
 public record PageResponse<T>(
         List<T> content,
         int page,

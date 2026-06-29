@@ -7,9 +7,6 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-/**
- * Données pour payer la facture du mois en cours d'un service (ISM, WOYAFAL...).
- */
 public record PayBillRequest(
 
         @ValidTelephone

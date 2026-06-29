@@ -6,9 +6,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.Set;
 
-/**
- * Stratégie sans frais : dépôts, transferts et paiements de factures.
- */
 @Component
 public class NoFeeStrategy implements FeeStrategy {
 

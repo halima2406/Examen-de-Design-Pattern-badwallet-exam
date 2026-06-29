@@ -6,9 +6,6 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-/**
- * Données d'un transfert entre deux portefeuilles.
- */
 public record TransferRequest(
 
         @ValidTelephone

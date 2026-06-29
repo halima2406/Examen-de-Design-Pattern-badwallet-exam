@@ -8,10 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Accès aux factures. Les requêtes dérivées suffisent ici : Spring Data JPA
- * génère le SQL à partir du nom des méthodes (pas de requête écrite à la main).
- */
 public interface FactureRepository extends JpaRepository<Facture, Long> {
 
     Optional<Facture> findByReference(String reference);

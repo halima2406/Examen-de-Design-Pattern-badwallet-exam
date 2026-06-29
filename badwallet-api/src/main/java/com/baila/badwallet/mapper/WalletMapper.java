@@ -5,9 +5,6 @@ import com.baila.badwallet.dto.response.WalletResponse;
 import com.baila.badwallet.entity.Wallet;
 import org.springframework.stereotype.Component;
 
-/**
- * Transforme l'entité Wallet en DTO de réponse. Garde les services concis.
- */
 @Component
 public class WalletMapper {
 

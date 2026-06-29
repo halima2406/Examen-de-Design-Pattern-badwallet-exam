@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Gestion globale des exceptions : centralise le format JSON des erreurs
- * pour que badwallet-api reçoive toujours une réponse cohérente.
- */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
