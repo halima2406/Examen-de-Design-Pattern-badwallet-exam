@@ -3,6 +3,7 @@ package com.baila.badwallet.controller;
 import com.baila.badwallet.common.ApiResponse;
 import com.baila.badwallet.common.PageResponse;
 import com.baila.badwallet.dto.request.CreateWalletRequest;
+import com.baila.badwallet.dto.response.BalanceResponse;
 import com.baila.badwallet.dto.response.WalletResponse;
 import com.baila.badwallet.service.WalletSeederService;
 import com.baila.badwallet.service.WalletService;
@@ -10,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,5 +63,19 @@ public class WalletController {
             @RequestParam(defaultValue = "10") int size) {
         PageResponse<WalletResponse> wallets = walletService.listWallets(page, size);
         return ResponseEntity.ok(ApiResponse.success("Liste des portefeuilles récupérée", wallets));
+    }
+
+    /** 1.4 - Consulter un portefeuille par numéro de téléphone. */
+    @GetMapping("/{phoneNumber}")
+    public ResponseEntity<ApiResponse<WalletResponse>> getByPhone(@PathVariable String phoneNumber) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Portefeuille récupéré", walletService.getByPhone(phoneNumber)));
+    }
+
+    /** 1.5 - Consulter uniquement le solde à jour. */
+    @GetMapping("/{phoneNumber}/balance")
+    public ResponseEntity<ApiResponse<BalanceResponse>> getBalance(@PathVariable String phoneNumber) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Solde récupéré", walletService.getBalance(phoneNumber)));
     }
 }
