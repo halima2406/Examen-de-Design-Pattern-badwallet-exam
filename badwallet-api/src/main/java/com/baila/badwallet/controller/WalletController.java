@@ -4,10 +4,14 @@ import com.baila.badwallet.common.ApiResponse;
 import com.baila.badwallet.common.PageResponse;
 import com.baila.badwallet.dto.request.CreateWalletRequest;
 import com.baila.badwallet.dto.request.DepositRequest;
+import com.baila.badwallet.dto.request.PayBillRequest;
+import com.baila.badwallet.dto.request.PayFacturesRequest;
 import com.baila.badwallet.dto.request.TransferRequest;
 import com.baila.badwallet.dto.request.WithdrawRequest;
 import com.baila.badwallet.dto.response.BalanceResponse;
+import com.baila.badwallet.dto.response.PaymentReceiptResponse;
 import com.baila.badwallet.dto.response.WalletResponse;
+import com.baila.badwallet.service.BillPaymentService;
 import com.baila.badwallet.service.DepositService;
 import com.baila.badwallet.service.TransferService;
 import com.baila.badwallet.service.WalletSeederService;
@@ -37,17 +41,20 @@ public class WalletController {
     private final DepositService depositService;
     private final WithdrawalService withdrawalService;
     private final TransferService transferService;
+    private final BillPaymentService billPaymentService;
 
     public WalletController(WalletSeederService walletSeederService,
                            WalletService walletService,
                            DepositService depositService,
                            WithdrawalService withdrawalService,
-                           TransferService transferService) {
+                           TransferService transferService,
+                           BillPaymentService billPaymentService) {
         this.walletSeederService = walletSeederService;
         this.walletService = walletService;
         this.depositService = depositService;
         this.withdrawalService = withdrawalService;
         this.transferService = transferService;
+        this.billPaymentService = billPaymentService;
     }
 
     /** 1.1 - Seeder la base (asynchrone). */
@@ -117,5 +124,23 @@ public class WalletController {
             @Valid @RequestBody TransferRequest request) {
         return ResponseEntity.ok(
                 ApiResponse.success("Transfert effectué avec succès", transferService.transfer(request)));
+    }
+
+    /** 1.9 - Payer la facture du mois en cours d'un service (ISM, WOYAFAL). */
+    @PostMapping("/pay")
+    public ResponseEntity<ApiResponse<PaymentReceiptResponse>> pay(
+            @Valid @RequestBody PayBillRequest request) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Paiement effectué avec succès",
+                        billPaymentService.payCurrentBill(request)));
+    }
+
+    /** 1.10 - Payer des factures spécifiques. */
+    @PostMapping("/pay-factures")
+    public ResponseEntity<ApiResponse<PaymentReceiptResponse>> payFactures(
+            @Valid @RequestBody PayFacturesRequest request) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Factures payées avec succès",
+                        billPaymentService.paySpecificFactures(request)));
     }
 }
