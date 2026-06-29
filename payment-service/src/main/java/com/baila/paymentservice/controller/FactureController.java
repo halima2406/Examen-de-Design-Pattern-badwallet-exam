@@ -21,10 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * API publique du service de facturation, consommée par badwallet-api.
- * Le controller ne contient pas de logique métier : il délègue aux services.
- */
 @RestController
 @RequestMapping("/api/factures")
 public class FactureController {

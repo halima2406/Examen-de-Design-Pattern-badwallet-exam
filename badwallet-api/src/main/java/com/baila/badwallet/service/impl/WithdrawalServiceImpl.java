@@ -18,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-/**
- * Retrait : applique les frais (Strategy), vérifie le solde, débite et trace.
- */
 @Service
 @Transactional
 public class WithdrawalServiceImpl implements WithdrawalService {

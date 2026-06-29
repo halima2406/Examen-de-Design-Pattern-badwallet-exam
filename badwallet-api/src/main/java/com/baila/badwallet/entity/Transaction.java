@@ -22,10 +22,6 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * Mouvement (événement) appliqué à un portefeuille : dépôt, retrait, transfert, paiement.
- * Le solde du portefeuille est la conséquence de la suite de ces transactions.
- */
 @Entity
 @Table(name = "transactions")
 @Getter
@@ -39,7 +35,6 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Référence unique générée par le singleton TransactionReferenceGenerator. */
     @Column(nullable = false, unique = true)
     private String reference;
 
@@ -50,7 +45,6 @@ public class Transaction {
     @Column(nullable = false)
     private BigDecimal montant;
 
-    /** Frais éventuels (ex : retrait). Zéro pour les opérations sans frais. */
     @Column(nullable = false)
     private BigDecimal frais;
 
@@ -61,7 +55,6 @@ public class Transaction {
     @Column(nullable = false)
     private TransactionStatus statut;
 
-    /** Contrepartie éventuelle (téléphone destinataire, nom du service de facturation...). */
     private String contrepartie;
 
     private String description;
@@ -69,9 +62,6 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    /**
-     * Côté propriétaire de la relation : porte la clé étrangère wallet_id.
-     */
     @ManyToOne
     @JoinColumn(name = "wallet_id", nullable = false)
     private Wallet wallet;

@@ -5,9 +5,6 @@ import com.baila.badwallet.dto.request.CreateWalletRequest;
 import com.baila.badwallet.dto.response.BalanceResponse;
 import com.baila.badwallet.dto.response.WalletResponse;
 
-/**
- * Gestion du cycle de vie et de la consultation des portefeuilles.
- */
 public interface WalletService {
 
     WalletResponse createWallet(CreateWalletRequest request);

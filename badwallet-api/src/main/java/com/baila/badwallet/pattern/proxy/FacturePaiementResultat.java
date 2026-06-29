@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Résultat de paiement renvoyé par payment-service après règlement de factures.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record FacturePaiementResultat(
         String walletCode,

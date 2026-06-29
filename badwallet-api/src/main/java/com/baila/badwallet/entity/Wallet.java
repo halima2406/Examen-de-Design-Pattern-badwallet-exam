@@ -23,10 +23,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Portefeuille électronique d'un client.
- * Construit via le pattern Builder (Lombok) dans les services et le seeder.
- */
 @Entity
 @Table(name = "wallets")
 @Getter
@@ -58,9 +54,6 @@ public class Wallet {
 
     private LocalDateTime createdAt;
 
-    /**
-     * Côté inverse de la relation : la clé étrangère est portée par Transaction.wallet.
-     */
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Transaction> transactions = new ArrayList<>();

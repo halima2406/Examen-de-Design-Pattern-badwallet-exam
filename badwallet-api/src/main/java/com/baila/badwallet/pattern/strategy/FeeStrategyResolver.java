@@ -8,11 +8,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Contexte du pattern Strategy : sélectionne la {@link FeeStrategy} adaptée au
- * type d'opération. Spring injecte automatiquement toutes les stratégies
- * disponibles, ce qui rend l'ajout d'une nouvelle règle transparent.
- */
 @Component
 public class FeeStrategyResolver {
 

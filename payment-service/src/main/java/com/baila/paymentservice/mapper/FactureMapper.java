@@ -4,10 +4,6 @@ import com.baila.paymentservice.dto.response.FactureResponse;
 import com.baila.paymentservice.entity.Facture;
 import org.springframework.stereotype.Component;
 
-/**
- * Transforme l'entité Facture en DTO de réponse.
- * Couche dédiée pour garder les services concis (responsabilité unique).
- */
 @Component
 public class FactureMapper {
 

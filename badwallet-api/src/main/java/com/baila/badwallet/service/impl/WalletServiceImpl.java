@@ -17,10 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Implémentation de la gestion des portefeuilles.
- * Responsabilité unique : création et consultation (pas de logique de transaction).
- */
 @Service
 @Transactional
 public class WalletServiceImpl implements WalletService {

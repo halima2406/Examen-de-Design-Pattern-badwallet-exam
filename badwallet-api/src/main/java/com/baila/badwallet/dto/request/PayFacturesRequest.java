@@ -6,9 +6,6 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
-/**
- * Données pour payer des factures précises identifiées par leurs références.
- */
 public record PayFacturesRequest(
 
         @ValidTelephone

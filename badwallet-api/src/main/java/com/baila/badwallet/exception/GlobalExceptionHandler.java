@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Gestion globale et centralisée des exceptions.
- * Chaque type d'erreur est traduit en réponse JSON uniforme avec le bon code HTTP.
- */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

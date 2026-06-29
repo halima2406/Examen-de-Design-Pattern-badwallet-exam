@@ -11,18 +11,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Initialise des factures de test au démarrage (mock via CommandLineRunner).
- *
- * Pour chaque portefeuille WLT-0000001..WLT-0000010 et chaque service (ISM, WOYAFAL),
- * une facture impayée est créée pour le mois en cours et les deux mois précédents.
- * Références au format FAC-{SERVICE}-{numéro}-{index}, ex : FAC-ISM-3-1.
- */
 @Component
 public class FactureSeeder implements CommandLineRunner {
 
     private static final int NB_WALLETS = 10;
-    /** 4 mois d'historique : l'index 1 = mois le plus ancien, le dernier index = mois courant. */
+
     private static final int NB_MOIS = 4;
 
     private record ServiceCatalogue(String nom, String unite, String libelle, BigDecimal montant) {
@@ -52,7 +45,7 @@ public class FactureSeeder implements CommandLineRunner {
             String walletCode = String.format("WLT-%07d", numero);
             for (ServiceCatalogue service : SERVICES) {
                 int index = 1;
-                // index 1 = mois le plus ancien, dernier index = mois courant
+
                 for (int moisEnArriere = NB_MOIS - 1; moisEnArriere >= 0; moisEnArriere--) {
                     LocalDate periode = debutMoisCourant.minusMonths(moisEnArriere);
                     factures.add(Facture.builder()

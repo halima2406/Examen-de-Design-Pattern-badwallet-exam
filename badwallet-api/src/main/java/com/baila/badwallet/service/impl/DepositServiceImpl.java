@@ -13,9 +13,6 @@ import com.baila.badwallet.service.WalletFinder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Dépôt : crédite le portefeuille et enregistre la transaction.
- */
 @Service
 @Transactional
 public class DepositServiceImpl implements DepositService {

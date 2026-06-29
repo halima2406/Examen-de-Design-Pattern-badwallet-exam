@@ -6,9 +6,6 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-/**
- * Données d'un dépôt sur un portefeuille.
- */
 public record DepositRequest(
 
         @NotNull(message = "Le montant est obligatoire")

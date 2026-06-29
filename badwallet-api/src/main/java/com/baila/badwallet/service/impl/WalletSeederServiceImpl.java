@@ -18,10 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.Random;
 
-/**
- * Génère des données de test (portefeuilles + événements) de façon asynchrone.
- * Le solde de chaque portefeuille découle de la suite de ses transactions.
- */
 @Service
 public class WalletSeederServiceImpl implements WalletSeederService {
 

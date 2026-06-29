@@ -11,15 +11,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * Pattern FACTORY.
- *
- * Centralise la création des objets {@link Transaction} selon leur type.
- * Les services n'ont pas à connaître les détails de construction (référence,
- * statut, date...), ce qui respecte le principe de responsabilité unique.
- *
- * La référence unique provient du SINGLETON {@link TransactionReferenceGenerator}.
- */
 @Component
 public class TransactionFactory {
 

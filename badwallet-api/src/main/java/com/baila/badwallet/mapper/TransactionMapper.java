@@ -4,9 +4,6 @@ import com.baila.badwallet.dto.response.TransactionResponse;
 import com.baila.badwallet.entity.Transaction;
 import org.springframework.stereotype.Component;
 
-/**
- * Transforme l'entité Transaction en DTO de réponse.
- */
 @Component
 public class TransactionMapper {
 

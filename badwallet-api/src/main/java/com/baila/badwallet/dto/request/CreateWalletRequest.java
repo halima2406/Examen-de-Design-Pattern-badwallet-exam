@@ -9,9 +9,6 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 
-/**
- * Données de création d'un portefeuille.
- */
 public record CreateWalletRequest(
 
         @ValidTelephone

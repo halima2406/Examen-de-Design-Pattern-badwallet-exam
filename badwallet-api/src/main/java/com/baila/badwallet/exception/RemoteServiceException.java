@@ -1,8 +1,5 @@
 package com.baila.badwallet.exception;
 
-/**
- * Levée quand l'appel au service externe (payment-service) échoue.
- */
 public class RemoteServiceException extends RuntimeException {
 
     public RemoteServiceException(String message) {

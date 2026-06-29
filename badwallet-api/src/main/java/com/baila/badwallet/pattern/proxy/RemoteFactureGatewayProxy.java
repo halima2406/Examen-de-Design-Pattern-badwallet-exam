@@ -14,14 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Pattern PROXY (implémentation distante).
- *
- * Représentant local du service de facturation distant : il expose la même
- * interface {@link FactureGateway} mais délègue chaque opération à payment-service
- * via HTTP, en isolant le reste de l'application des détails du transport et des
- * erreurs réseau.
- */
 @Component
 public class RemoteFactureGatewayProxy implements FactureGateway {
 
@@ -114,10 +106,6 @@ public class RemoteFactureGatewayProxy implements FactureGateway {
         return response.data();
     }
 
-    /**
-     * Traduit une erreur HTTP du service distant en exception métier locale,
-     * pour qu'elle soit gérée par le GlobalExceptionHandler.
-     */
     private void traduireErreur(org.springframework.http.HttpRequest request,
                                 org.springframework.http.client.ClientHttpResponse response) throws java.io.IOException {
         HttpStatusCode statut = response.getStatusCode();

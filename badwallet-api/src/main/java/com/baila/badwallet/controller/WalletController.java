@@ -32,10 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Point d'entrée HTTP des portefeuilles. Le controller ne porte aucune logique
- * métier : il valide l'entrée et délègue à des services dédiés (un par opération).
- */
 @RestController
 @RequestMapping("/api/wallets")
 public class WalletController {
@@ -64,7 +60,6 @@ public class WalletController {
         this.transactionHistoryService = transactionHistoryService;
     }
 
-    /** 1.1 - Seeder la base (asynchrone). */
     @PostMapping("/seed")
     public ResponseEntity<ApiResponse<Void>> seed(
             @RequestParam(defaultValue = "10") int numWallets,
@@ -76,7 +71,6 @@ public class WalletController {
                                 + eventsPerWallet + " événements", null));
     }
 
-    /** 1.2 - Créer un portefeuille. */
     @PostMapping
     public ResponseEntity<ApiResponse<WalletResponse>> create(
             @Valid @RequestBody CreateWalletRequest request) {
@@ -85,7 +79,6 @@ public class WalletController {
                 .body(ApiResponse.success("Portefeuille créé avec succès", wallet));
     }
 
-    /** 1.3 - Lister les portefeuilles (paginé). */
     @GetMapping
     public ResponseEntity<ApiResponse<PageResponse<WalletResponse>>> list(
             @RequestParam(defaultValue = "0") int page,
@@ -94,21 +87,18 @@ public class WalletController {
         return ResponseEntity.ok(ApiResponse.success("Liste des portefeuilles récupérée", wallets));
     }
 
-    /** 1.4 - Consulter un portefeuille par numéro de téléphone. */
     @GetMapping("/{phoneNumber}")
     public ResponseEntity<ApiResponse<WalletResponse>> getByPhone(@PathVariable String phoneNumber) {
         return ResponseEntity.ok(
                 ApiResponse.success("Portefeuille récupéré", walletService.getByPhone(phoneNumber)));
     }
 
-    /** 1.5 - Consulter uniquement le solde à jour. */
     @GetMapping("/{phoneNumber}/balance")
     public ResponseEntity<ApiResponse<BalanceResponse>> getBalance(@PathVariable String phoneNumber) {
         return ResponseEntity.ok(
                 ApiResponse.success("Solde récupéré", walletService.getBalance(phoneNumber)));
     }
 
-    /** 1.6 - Effectuer un dépôt. */
     @PostMapping("/{id}/deposit")
     public ResponseEntity<ApiResponse<WalletResponse>> deposit(
             @PathVariable Long id,
@@ -117,7 +107,6 @@ public class WalletController {
                 ApiResponse.success("Dépôt effectué avec succès", depositService.deposit(id, request)));
     }
 
-    /** 1.7 - Effectuer un retrait (frais de 1% plafonnés à 5000 XOF). */
     @PostMapping("/withdraw")
     public ResponseEntity<ApiResponse<WalletResponse>> withdraw(
             @Valid @RequestBody WithdrawRequest request) {
@@ -125,7 +114,6 @@ public class WalletController {
                 ApiResponse.success("Retrait effectué avec succès", withdrawalService.withdraw(request)));
     }
 
-    /** 1.8 - Effectuer un transfert entre deux portefeuilles. */
     @PostMapping("/transfer")
     public ResponseEntity<ApiResponse<WalletResponse>> transfer(
             @Valid @RequestBody TransferRequest request) {
@@ -133,7 +121,6 @@ public class WalletController {
                 ApiResponse.success("Transfert effectué avec succès", transferService.transfer(request)));
     }
 
-    /** 1.9 - Payer la facture du mois en cours d'un service (ISM, WOYAFAL). */
     @PostMapping("/pay")
     public ResponseEntity<ApiResponse<PaymentReceiptResponse>> pay(
             @Valid @RequestBody PayBillRequest request) {
@@ -142,7 +129,6 @@ public class WalletController {
                         billPaymentService.payCurrentBill(request)));
     }
 
-    /** 1.10 - Payer des factures spécifiques. */
     @PostMapping("/pay-factures")
     public ResponseEntity<ApiResponse<PaymentReceiptResponse>> payFactures(
             @Valid @RequestBody PayFacturesRequest request) {
@@ -151,7 +137,6 @@ public class WalletController {
                         billPaymentService.paySpecificFactures(request)));
     }
 
-    /** 1.11 - Consulter l'historique des transactions par téléphone. */
     @GetMapping("/{phoneNumber}/transactions")
     public ResponseEntity<ApiResponse<List<TransactionResponse>>> transactions(
             @PathVariable String phoneNumber) {

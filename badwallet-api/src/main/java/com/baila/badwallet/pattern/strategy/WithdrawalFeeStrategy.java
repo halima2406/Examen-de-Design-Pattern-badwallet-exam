@@ -7,9 +7,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Set;
 
-/**
- * Stratégie de frais pour les RETRAITS : 1% du montant, plafonné à 5000 XOF.
- */
 @Component
 public class WithdrawalFeeStrategy implements FeeStrategy {
 

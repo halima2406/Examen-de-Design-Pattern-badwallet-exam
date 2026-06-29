@@ -4,10 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * Enveloppe de réponse uniforme pour toute l'API.
- * Garantit un format JSON stable (success / message / data / errors) côté client.
- */
 @Getter
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.ALWAYS)
