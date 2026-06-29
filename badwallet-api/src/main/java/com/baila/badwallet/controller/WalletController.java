@@ -4,10 +4,12 @@ import com.baila.badwallet.common.ApiResponse;
 import com.baila.badwallet.common.PageResponse;
 import com.baila.badwallet.dto.request.CreateWalletRequest;
 import com.baila.badwallet.dto.request.DepositRequest;
+import com.baila.badwallet.dto.request.TransferRequest;
 import com.baila.badwallet.dto.request.WithdrawRequest;
 import com.baila.badwallet.dto.response.BalanceResponse;
 import com.baila.badwallet.dto.response.WalletResponse;
 import com.baila.badwallet.service.DepositService;
+import com.baila.badwallet.service.TransferService;
 import com.baila.badwallet.service.WalletSeederService;
 import com.baila.badwallet.service.WalletService;
 import com.baila.badwallet.service.WithdrawalService;
@@ -34,15 +36,18 @@ public class WalletController {
     private final WalletService walletService;
     private final DepositService depositService;
     private final WithdrawalService withdrawalService;
+    private final TransferService transferService;
 
     public WalletController(WalletSeederService walletSeederService,
                            WalletService walletService,
                            DepositService depositService,
-                           WithdrawalService withdrawalService) {
+                           WithdrawalService withdrawalService,
+                           TransferService transferService) {
         this.walletSeederService = walletSeederService;
         this.walletService = walletService;
         this.depositService = depositService;
         this.withdrawalService = withdrawalService;
+        this.transferService = transferService;
     }
 
     /** 1.1 - Seeder la base (asynchrone). */
@@ -104,5 +109,13 @@ public class WalletController {
             @Valid @RequestBody WithdrawRequest request) {
         return ResponseEntity.ok(
                 ApiResponse.success("Retrait effectué avec succès", withdrawalService.withdraw(request)));
+    }
+
+    /** 1.8 - Effectuer un transfert entre deux portefeuilles. */
+    @PostMapping("/transfer")
+    public ResponseEntity<ApiResponse<WalletResponse>> transfer(
+            @Valid @RequestBody TransferRequest request) {
+        return ResponseEntity.ok(
+                ApiResponse.success("Transfert effectué avec succès", transferService.transfer(request)));
     }
 }
