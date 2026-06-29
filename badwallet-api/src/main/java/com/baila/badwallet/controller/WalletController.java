@@ -1,6 +1,7 @@
 package com.baila.badwallet.controller;
 
 import com.baila.badwallet.common.ApiResponse;
+import com.baila.badwallet.common.PageResponse;
 import com.baila.badwallet.dto.request.CreateWalletRequest;
 import com.baila.badwallet.dto.response.WalletResponse;
 import com.baila.badwallet.service.WalletSeederService;
@@ -8,6 +9,7 @@ import com.baila.badwallet.service.WalletService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,5 +52,14 @@ public class WalletController {
         WalletResponse wallet = walletService.createWallet(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success("Portefeuille créé avec succès", wallet));
+    }
+
+    /** 1.3 - Lister les portefeuilles (paginé). */
+    @GetMapping
+    public ResponseEntity<ApiResponse<PageResponse<WalletResponse>>> list(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageResponse<WalletResponse> wallets = walletService.listWallets(page, size);
+        return ResponseEntity.ok(ApiResponse.success("Liste des portefeuilles récupérée", wallets));
     }
 }
